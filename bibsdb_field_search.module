@@ -6,6 +6,7 @@
 
 /**
  * Implements hook_ting_pre_execute().
+ * Some TingClientObjectRequests are missed by ting_field_search_ting_pre_execute because it requires a context, that is not set for all requests.
  */
 function bibsdb_field_search_ting_pre_execute($request) {
 
@@ -24,7 +25,6 @@ function bibsdb_field_search_ting_pre_execute($request) {
         // administrator knows what they are doing.
 			if ($result_well_profile) {
 				$request->setProfile($result_well_profile);
-				dd($request);
 			}
         // Otherwise remeber to use the search well profile to ensure results
         // can be shown.
