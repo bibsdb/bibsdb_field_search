@@ -1,0 +1,4 @@
+name = Bibsdb Field Search
+core = 7.x
+package = Bibsdb
+dependencies[] = ting_field_search

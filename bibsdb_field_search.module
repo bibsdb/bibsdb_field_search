@@ -1,0 +1,37 @@
+<?php
+/**
+ * @file
+ * Code that overrides ting_field_search module
+ */
+
+/**
+ * Implements hook_ting_pre_execute().
+ */
+function bibsdb_field_search_ting_pre_execute($request) {
+
+	$profile = ting_field_search_get_active_profile();
+
+	if ($profile) {
+    // Initialize some often used variables.
+		$config = $profile->config;
+		$search_well_profile = $config['search_request']['search_well_profile'];
+		$result_well_profile = $config['search_request']['result_well_profile'];
+
+    // Alter the request based on the profile settings and request class.
+		switch (get_class($request)) {
+			case 'TingClientObjectRequest':
+        // Use an alternative well profile for results if set. Hopefully the
+        // administrator knows what they are doing.
+			if ($result_well_profile) {
+				$request->setProfile($result_well_profile);
+				dd($request);
+			}
+        // Otherwise remeber to use the search well profile to ensure results
+        // can be shown.
+			else if ($search_well_profile) {
+				$request->setProfile($search_well_profile);
+			}
+			break;
+		}
+	}
+}
