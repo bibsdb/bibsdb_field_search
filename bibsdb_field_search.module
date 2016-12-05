@@ -23,15 +23,27 @@ function bibsdb_field_search_ting_pre_execute($request) {
 			case 'TingClientObjectRequest':
         // Use an alternative well profile for results if set. Hopefully the
         // administrator knows what they are doing.
-			if ($result_well_profile) {
-				$request->setProfile($result_well_profile);
-			}
+				if ($result_well_profile) {
+					$request->setProfile($result_well_profile);
+				}
         // Otherwise remeber to use the search well profile to ensure results
         // can be shown.
-			else if ($search_well_profile) {
-				$request->setProfile($search_well_profile);
-			}
-			break;
+				else if ($search_well_profile) {
+					$request->setProfile($search_well_profile);
+				}
+				break;
+			case 'TingClientCollectionRequest':
+        // Use an alternative well profile for results if set. Hopefully the
+        // administrator knows what they are doing.
+				if ($result_well_profile == "lokalhistorie") {
+					$request->setProfile($result_well_profile);
+				}
+        // Otherwise remeber to use the search well profile to ensure results
+        // can be shown.
+				else if ($search_well_profile == "lokalhistorie") {
+					$request->setProfile($search_well_profile);
+				}
+				break;
 		}
 	}
 }
